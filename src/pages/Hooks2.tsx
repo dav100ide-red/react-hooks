@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useLayoutEffect, useReducer, useRef, useState } from "react";
 import { Hobby, User } from "../types/user.type";
 import Section from "../components/Section";
 
@@ -40,6 +40,24 @@ export default function Hooks2() {
   const updateName = (name: string) =>
     dispatch({ type: "updateName", payload: name });
 
+  // -----------------------------------------------------------------------------------------------------------------------------------------------
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [boxWidth, setBoxWidth] = useState(0);
+
+  useLayoutEffect(() => {
+    const updateWidth = () => {
+      if (boxRef.current) {
+        setBoxWidth(boxRef.current.offsetWidth);
+      }
+    };
+
+    updateWidth(); // Initial update
+    window.addEventListener("resize", updateWidth); // Update on resize
+
+    return () => {
+      window.removeEventListener("resize", updateWidth); // Cleanup
+    };
+  }, []);
   return (
     <>
       <Section
@@ -82,6 +100,15 @@ export default function Hooks2() {
             Update Name to Mario
           </button>
         </div>
+      </Section>
+      <Section
+        heading="useLayoutEffect()"
+        description="similar to useEffect(), it executes BEFORE the browser repaints the screen"
+      >
+        <div ref={boxRef} className="bg-blue-200 py-7 px-3 w-[40vw]">
+          Resize me!
+        </div>
+        <p>box width: {boxWidth}</p>
       </Section>
     </>
   );
