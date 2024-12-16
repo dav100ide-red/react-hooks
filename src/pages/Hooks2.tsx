@@ -1,4 +1,4 @@
-import { useLayoutEffect, useReducer, useRef, useState } from "react";
+import { useId, useLayoutEffect, useReducer, useRef, useState } from "react";
 import { Hobby, User } from "../types/user.type";
 import Section from "../components/Section";
 
@@ -58,6 +58,10 @@ export default function Hooks2() {
       window.removeEventListener("resize", updateWidth); // Cleanup
     };
   }, []);
+
+  // -----------------------------------------------------------------------------------------------------------------------------------------------
+  const id = useId();
+
   return (
     <>
       <Section
@@ -109,6 +113,20 @@ export default function Hooks2() {
           Resize me!
         </div>
         <p>box width: {boxWidth}</p>
+      </Section>
+      <Section
+        heading="useId()"
+        description="by using this hook, we ensure that we have unique IDs acrss SSR and client side rendering, preventing IDs collisions, plus it is DRY"
+      >
+        <div>
+          <label htmlFor={id}>Enter your email</label>
+          <input
+            type="email"
+            id={id}
+            placeholder="pippo@gmail.com"
+            className="border"
+          />
+        </div>
       </Section>
     </>
   );

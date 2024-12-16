@@ -21,21 +21,26 @@ export default function Hooks1() {
   return (
     <Hooks1StateContext.Provider value={{ isRed }}>
       <Section heading="useCallback()">
-        <input
-          className={
-            isRed ? "border-2 border-red-900" : "border-2 border-blue-500"
-          }
-          type="number"
-          value={number}
-          onChange={(e) => setNumber(+e.target.value)}
-        />
-        <button
-          className={isRed ? "bg-red-900" : "bg-blue-500"}
-          onClick={() => setIsRed((prev) => !prev)}
-        >
-          toggle isRed
-        </button>
-        <List getItems={getNums} />
+        <div className="bg-gray-600 p-5">
+          <input
+            className={
+              isRed ? "border-2 border-red-900" : "border-2 border-blue-500"
+            }
+            type="number"
+            value={number}
+            onChange={(e) => setNumber(+e.target.value)}
+          />
+          <button
+            className={isRed ? "bg-red-900" : "bg-blue-500"}
+            onClick={() => setIsRed((prev) => !prev)}
+          >
+            toggle isRed
+          </button>
+          <div className="bg-gray-200 m-2 p-4 rounded-lg">
+            CHILD LIST:
+            <List getItems={getNums} />
+          </div>
+        </div>
       </Section>
       <Section
         heading="useContext()"
