@@ -1,6 +1,7 @@
 import { useOptimistic, useState } from "react";
 import Section from "../components/Section";
 import { Todo } from "../types/todo.type";
+import wait from "../functions/wait";
 
 export default function Hooks5() {
   const [todos, setTodos] = useState<Todo[]>([
@@ -88,10 +89,4 @@ function createTodo(title: string): Promise<Todo> {
     pending: false, //coming from a server so it's not pending
   };
   return wait(todo, 2000);
-}
-
-function wait<T>(value: T, duration: number): Promise<T> {
-  return new Promise<T>((resolve) => {
-    setTimeout(() => resolve(value), duration);
-  });
 }

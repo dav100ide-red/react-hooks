@@ -12,6 +12,7 @@ import Hooks2 from "./pages/Hooks2";
 import Hooks3 from "./pages/Hooks3";
 import Hooks4 from "./pages/Hooks4";
 import Hooks5 from "./pages/Hooks5";
+import LazyMemo from "./pages/lazy-memo";
 
 function App() {
   const routes = [
@@ -21,6 +22,7 @@ function App() {
     { path: "/hooks3", label: "hooks3", element: <Hooks3 /> },
     { path: "/hooks4", label: "hooks4", element: <Hooks4 /> },
     { path: "/hooks5", label: "hooks5", element: <Hooks5 /> },
+    { path: "/lazymemo", label: "lazy & memo", element: <LazyMemo /> },
   ] as const;
 
   return (
