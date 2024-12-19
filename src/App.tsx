@@ -13,6 +13,9 @@ import Hooks3 from "./pages/Hooks3";
 import Hooks4 from "./pages/Hooks4";
 import Hooks5 from "./pages/Hooks5";
 import LazyMemo from "./pages/lazy-memo";
+import Fetch from "./pages/Fetch";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+const queryClient = new QueryClient();
 
 function App() {
   const routes = [
@@ -23,33 +26,36 @@ function App() {
     { path: "/hooks4", label: "hooks4", element: <Hooks4 /> },
     { path: "/hooks5", label: "hooks5", element: <Hooks5 /> },
     { path: "/lazymemo", label: "lazy & memo", element: <LazyMemo /> },
+    { path: "/fetch", label: "fetch", element: <Fetch /> },
   ] as const;
 
   return (
-    <div className="p-5 prose max-w-full">
-      <BrowserRouter>
-        <nav className="mb-5">
-          {routes.map((l, index) => (
-            <NavLink
-              className="me-3 underline text-blue-500"
-              key={index}
-              to={l.path}
-            >
-              {l.label}
-            </NavLink>
-          ))}
-        </nav>
-        <Routes>
-          <Route path="/" element={<Navigate to="/hooks2" replace />} />
-
-          <Route element={<Layout />}>
+    <QueryClientProvider client={queryClient}>
+      <div className="p-5 prose max-w-full">
+        <BrowserRouter>
+          <nav className="mb-5">
             {routes.map((l, index) => (
-              <Route key={index} path={l.path} element={l.element} />
+              <NavLink
+                className="me-3 underline text-blue-500"
+                key={index}
+                to={l.path}
+              >
+                {l.label}
+              </NavLink>
             ))}
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+          </nav>
+          <Routes>
+            <Route path="/" element={<Navigate to="/hooks2" replace />} />
+
+            <Route element={<Layout />}>
+              {routes.map((l, index) => (
+                <Route key={index} path={l.path} element={l.element} />
+              ))}
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </QueryClientProvider>
   );
 }
 
