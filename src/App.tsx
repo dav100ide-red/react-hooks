@@ -15,6 +15,7 @@ import Hooks5 from "./pages/Hooks5";
 import LazyMemo from "./pages/lazy-memo";
 import Fetch from "./pages/Fetch";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import UseQuery from "./pages/UseQuery";
 const queryClient = new QueryClient();
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
     { path: "/hooks5", label: "hooks5", element: <Hooks5 /> },
     { path: "/lazymemo", label: "lazy & memo", element: <LazyMemo /> },
     { path: "/fetch", label: "fetch", element: <Fetch /> },
+    { path: "/use-query", label: "useQuery", element: <UseQuery /> },
   ] as const;
 
   return (

@@ -1,0 +1,29 @@
+import { useQuery } from "@tanstack/react-query";
+import Section from "../components/Section";
+import { fetchPokemons } from "../functions/fetchPokemons";
+import PokemonCard, { PokemonCardProps } from "../components/PokemonCard";
+
+export default function UseQuery() {
+  const {
+    data: pokemons,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["pokemons"],
+    queryFn: fetchPokemons,
+  });
+
+  return (
+    <Section heading="Pokemons fetched with React Query">
+      {isLoading && <p>Loading...</p>}
+      {isError && <p>Error loading Pokémons.</p>}
+      {pokemons && !isLoading && !isError && (
+        <div className="grid grid-cols-3 gap-4">
+          {pokemons.map((p: PokemonCardProps) => (
+            <PokemonCard key={p.name} name={p.name} detailsUrl={p.detailsUrl} />
+          ))}
+        </div>
+      )}
+    </Section>
+  );
+}
