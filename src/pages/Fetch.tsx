@@ -2,19 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import PokemonCard, { PokemonCardProps } from "../components/PokemonCard";
 import Section from "../components/Section";
-
-type PokemonItem = {
-  name: string;
-  url: string;
-};
-
-async function fetchPokemons(): Promise<PokemonCardProps[]> {
-  const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=3");
-  const data = await response.json();
-  return data.results.map((p: PokemonItem) => {
-    return { name: p.name, detailsUrl: p.url };
-  });
-}
+import { fetchPokemons } from "../functions/fetchPokemons";
 
 export default function Fetch() {
   // State and effect for fetch() example
