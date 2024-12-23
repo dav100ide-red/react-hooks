@@ -4,7 +4,6 @@ import Section from "../components/Section";
 import { fetchPokemons } from "../functions/fetchPokemons";
 
 export default function Fetch() {
-  // State and effect for fetch() example
   const [pokemons, setFetchPokemons] = useState<PokemonCardProps[]>([]);
   useEffect(() => {
     fetchPokemons().then(setFetchPokemons);

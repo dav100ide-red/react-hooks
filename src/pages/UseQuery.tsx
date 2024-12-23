@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Section from "../components/Section";
-import { fetchPokemons } from "../functions/fetchPokemons";
+import { pokemonQueryFn } from "../functions/fetchPokemons";
 import PokemonCard, { PokemonCardProps } from "../components/PokemonCard";
 
 export default function UseQuery() {
@@ -10,7 +10,7 @@ export default function UseQuery() {
     isError,
   } = useQuery({
     queryKey: ["pokemons"],
-    queryFn: fetchPokemons,
+    queryFn: pokemonQueryFn,
   });
 
   return (
