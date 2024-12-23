@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import Section from "../components/Section";
 import { pokemonQueryFn } from "../functions/fetchPokemons";
 import PokemonCard, { PokemonCardProps } from "../components/PokemonCard";
+import { GenericLoader } from "../components/Genericloader";
 
 export default function UseQuery() {
   const {
@@ -15,7 +16,7 @@ export default function UseQuery() {
 
   return (
     <Section heading="Pokemons fetched with React Query">
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <GenericLoader />}
       {isError && <p>Error loading Pokémons.</p>}
       {pokemons && !isLoading && !isError && (
         <div className="grid grid-cols-3 gap-4">
