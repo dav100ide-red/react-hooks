@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import PokemonCard from "../components/PokemonCard";
+import PokemonCard, { PokemonCardProps } from "../components/PokemonCard";
 import Section from "../components/Section";
 
-async function fetchPokemons() {
+async function fetchPokemons(): Promise<PokemonCardProps[]> {
   const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=3");
   const data = await response.json();
   return data.results; //.filter((pokemon: any) => pokemon.name.startsWith("f"));
@@ -11,7 +11,7 @@ async function fetchPokemons() {
 
 export default function Fetch() {
   // State and effect for fetch() example
-  const [pokemons, setFetchPokemons] = useState([] as any[]);
+  const [pokemons, setFetchPokemons] = useState([] as PokemonCardProps[]);
   useEffect(() => {
     fetchPokemons().then(setFetchPokemons);
   }, []);
@@ -30,14 +30,8 @@ export default function Fetch() {
     <>
       <Section heading="Pokemons fetched with fetch()">
         <div className="grid grid-cols-3 gap-4">
-          {pokemons.map((pokemon) => (
-            <PokemonCard
-              key={pokemon.name}
-              name={pokemon.name}
-              image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.url
-                .split("/")
-                .slice(-2, -1)}.png`}
-            />
+          {pokemons.map((p) => (
+            <PokemonCard key={p.name} name={p.name} detailsUrl={p.detailsUrl} />
           ))}
         </div>
       </Section>
@@ -45,15 +39,13 @@ export default function Fetch() {
       <Section heading="Pokemons fetched with React Query">
         {isLoading && <p>Loading...</p>}
         {isError && <p>Error loading Pokémons.</p>}
-        {!isLoading && !isError && (
+        {queryPokemons && !isLoading && !isError && (
           <div className="grid grid-cols-3 gap-4">
-            {queryPokemons.map((pokemon: any) => (
+            {queryPokemons.map((p: PokemonCardProps) => (
               <PokemonCard
-                key={pokemon.name}
-                name={pokemon.name}
-                image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.url
-                  .split("/")
-                  .slice(-2, -1)}.png`}
+                key={p.name}
+                name={p.name}
+                detailsUrl={p.detailsUrl}
               />
             ))}
           </div>
