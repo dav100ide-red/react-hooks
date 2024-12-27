@@ -1,5 +1,6 @@
-// PokemonCard.tsx
 import React from "react";
+import { Link } from "react-router-dom";
+import { extractPokemonId } from "../constants/extractPokemonId";
 
 export type PokemonCardProps = {
   name: string;
@@ -7,22 +8,26 @@ export type PokemonCardProps = {
 };
 
 const PokemonCard: React.FC<PokemonCardProps> = ({ name, detailsUrl }) => {
-  const getImageUrl = (url: string): string => {
+  const id = extractPokemonId(detailsUrl); // Extract Pokémon ID using utility function
+
+  const getImageUrl = (id: string): string => {
     const imageUrlPrefix =
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon";
-    const id = url.split("/").slice(-2, -1)[0];
     return `${imageUrlPrefix}/${id}.png`;
   };
 
   return (
-    <div className="border p-4 rounded shadow hover:shadow-lg">
+    <Link
+      to={`/pokemon/${id}`}
+      className="block border p-4 rounded shadow hover:shadow-lg"
+    >
       <img
-        src={getImageUrl(detailsUrl)}
+        src={getImageUrl(id)} // Use the extracted ID
         alt={name}
         className="w-20 h-20 mx-auto"
       />
       <p className="text-center mt-2 font-bold capitalize">{name}</p>
-    </div>
+    </Link>
   );
 };
 

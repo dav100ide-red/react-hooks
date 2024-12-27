@@ -16,6 +16,7 @@ import LazyMemo from "./pages/lazy-memo";
 import Fetch from "./pages/Fetch";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UseQuery from "./pages/UseQuery";
+import PokemonDetails from "./components/PokemonDetails";
 const queryClient = new QueryClient();
 
 function App() {
@@ -47,13 +48,14 @@ function App() {
             ))}
           </nav>
           <Routes>
-            <Route path="/" element={<Navigate to="/hooks2" replace />} />
+            <Route path="/" element={<Navigate to="/home" replace />} />
 
             <Route element={<Layout />}>
               {routes.map((l, index) => (
                 <Route key={index} path={l.path} element={l.element} />
               ))}
             </Route>
+            <Route path="/pokemon/:id" element={<PokemonDetails />} />
           </Routes>
         </BrowserRouter>
       </div>
